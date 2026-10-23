@@ -1,0 +1,141 @@
+@import "tailwindcss" source(none);
+@source "../src";
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-neon-green: var(--neon-green);
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-pink: var(--neon-pink);
+  --color-terminal: var(--terminal);
+  --font-mono: "Fira Code", ui-monospace, monospace;
+  --font-display: "Bungee", "Fira Code", sans-serif;
+}
+
+:root {
+  --radius: 0.9rem;
+  --background: oklch(0.12 0.04 300);
+  --foreground: oklch(0.95 0.02 160);
+  --primary: oklch(0.88 0.25 145);
+  --primary-foreground: oklch(0.12 0.04 300);
+  --secondary: oklch(0.85 0.15 200);
+  --secondary-foreground: oklch(0.12 0.04 300);
+  --muted: oklch(0.25 0.05 300);
+  --muted-foreground: oklch(0.72 0.05 260);
+  --accent: oklch(0.7 0.28 350);
+  --accent-foreground: oklch(0.98 0 0);
+  --border: oklch(0.85 0.15 200 / 0.3);
+  --input: oklch(0.85 0.15 200 / 0.3);
+  --neon-green: oklch(0.88 0.25 145);
+  --neon-cyan: oklch(0.85 0.15 200);
+  --neon-pink: oklch(0.7 0.28 350);
+  --terminal: oklch(0.08 0.01 150 / 0.85);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html,
+  body {
+    height: 100%;
+    overflow-x: hidden;
+  }
+  body {
+    background:
+      radial-gradient(ellipse at 15% 20%, oklch(0.45 0.2 145 / 0.35), transparent 50%),
+      radial-gradient(ellipse at 85% 75%, oklch(0.5 0.25 350 / 0.3), transparent 50%),
+      radial-gradient(ellipse at 60% 10%, oklch(0.5 0.15 200 / 0.25), transparent 45%),
+      var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-mono);
+  }
+}
+
+@utility glass {
+  background: oklch(0.2 0.06 300 / 0.45);
+  backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid var(--color-border);
+  box-shadow:
+    0 0 30px -8px var(--neon-cyan),
+    inset 0 0 20px -12px var(--neon-green);
+}
+
+@utility glow-green {
+  text-shadow:
+    0 0 6px var(--neon-green),
+    0 0 18px var(--neon-green);
+}
+@utility glow-pink {
+  text-shadow:
+    0 0 6px var(--neon-pink),
+    0 0 18px var(--neon-pink);
+}
+@utility glow-cyan {
+  text-shadow:
+    0 0 6px var(--neon-cyan),
+    0 0 18px var(--neon-cyan);
+}
+
+@utility scanlines {
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, oklch(0 0 0 / 0.25) 0 1px, transparent 1px 3px);
+  animation: flicker 0.15s infinite alternate;
+}
+
+@utility zzz {
+  position: absolute;
+  font-family: var(--font-display);
+  color: var(--neon-green);
+  opacity: 0;
+  animation: drift linear infinite;
+  text-shadow: 0 0 12px var(--neon-green);
+}
+
+@utility alarm {
+  animation: alarm 0.5s steps(1) infinite;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate(0, 0) rotate(-10deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(120px, -110vh) rotate(20deg);
+    opacity: 0;
+  }
+}
+@keyframes flicker {
+  from {
+    opacity: 0.85;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes alarm {
+  0% {
+    background: oklch(0.45 0.25 25 / 0.92);
+  }
+  50% {
+    background: oklch(0.45 0.25 145 / 0.92);
+  }
+}
